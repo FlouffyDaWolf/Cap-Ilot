@@ -11,7 +11,7 @@ public static class SaveDataPlayer
     public static void SaveGameState()
     {
         string _filePathSaveData = Application.persistentDataPath + FILENAME_SAVEDATA;
-        PlayerData _playerData = new PlayerData("Player"); //Instance of the file white the data of the player.
+        PlayerData _playerData = new PlayerData(testSaveLoad.Instance);
         SaveData _saveData = new SaveData(_playerData);
         string _txt = JsonUtility.ToJson(_saveData);
         File.WriteAllText(_filePathSaveData, _txt);
@@ -32,11 +32,11 @@ public class SaveData
 [Serializable]
 public class PlayerData
 {
-    [SerializeField] public string _usurname;
+    [SerializeField] public float _chrono;
 
-    public PlayerData(string usurname)//Set file white the data of the player when the file will be created.
+    public PlayerData(testSaveLoad test)
     {
-        _usurname = usurname;
+        _chrono = test.chrono;
     }
 }
 
