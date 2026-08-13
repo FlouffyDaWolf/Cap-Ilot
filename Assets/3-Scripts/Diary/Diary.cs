@@ -1,15 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
+using UnityEditor.Rendering;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [Serializable]
 public struct Page
 {
-    public Themes Theme; // for now it is just a string
+    public Themes Theme;
     public Emotions Emotion;
     public string Content;
     public string Date;
+
+    public bool Equals(Page other) => Theme == other.Theme && Emotion == other.Emotion && Content == other.Content && Date == other.Date;
+    public override bool Equals(object obj) => obj is Page p && Equals(p);
+    public override int GetHashCode() => HashCode.Combine(Theme, Emotion, Content, Date);
+    public static bool operator ==(Page a, Page b) => a.Equals(b);
+    public static bool operator !=(Page a, Page b) => !a.Equals(b);
 }
 
 [Serializable]
@@ -31,6 +40,7 @@ public class Diary : MonoBehaviour
     [SerializeField] TMP_Text _oldTheme;
     [SerializeField] TMP_Text _oldEmotions;
     [SerializeField] TMP_Text _oldContent;
+    [SerializeField] TMP_Text _oldDate;
 
     [Header("Page type")]
     [SerializeField] GameObject _emptyPage;
@@ -38,16 +48,27 @@ public class Diary : MonoBehaviour
 
     int _currentPage = 0;
     Page _newPageSave = new();
+    bool _newPageFinalized = false;
+    string _date = DateTime.Today.ToString("d" ,new CultureInfo("fr-FR"));
 
     public List<Page> Pages { get; } = new();
 
     void OnEnable()
     {
+        // Pages = Saves.Pages; // un truc du genre
+
         _newEmotions.AddOptions(new List<string>(Enum.GetNames(typeof(Emotions))));
         _newTheme.AddOptions(new List<string>(Enum.GetNames(typeof(Themes))));
-        Pages.Add(new(){Content = "2x feur", Emotion = Emotions.Effrayé});
-        Pages.Add(new(){Content = "2x skoualala", Emotion = Emotions.Joyeux});
+
         _currentPage = Pages.Count;
+
+        if (Pages[^1].Date == _date)
+        {
+            Debug.Log("mais pourtant tu es la");
+            _currentPage--;
+            _newPageFinalized = true;
+            LoadOldPage(_currentPage);
+        }
     }
 
     void SaveNewPage()
@@ -55,7 +76,7 @@ public class Diary : MonoBehaviour
         _newPageSave.Theme = (Themes)_newTheme.value;
         _newPageSave.Emotion = (Emotions)_newEmotions.value;
         _newPageSave.Content = _newContent.text;
-        _newPageSave.Date = DateTime.Today.ToString();
+        _newPageSave.Date = _date;
     }
 
     void LoadSaveNewPage()
@@ -71,11 +92,21 @@ public class Diary : MonoBehaviour
         _oldTheme.text = oldPage.Theme.ToString();
         _oldEmotions.text = oldPage.Emotion.ToString();
         _oldContent.text = oldPage.Content;
+        _oldDate.text = oldPage.Date;
+    }
+
+    public void FinalizePage()
+    {
+        SaveNewPage();
+        Pages.Add(_newPageSave);
+        _newPageFinalized = true;
     }
 
     public void ChangePage(int amount)
     {
         _currentPage += amount;
+
+        Debug.Log(_currentPage);
 
         if (_currentPage > Pages.Count || _currentPage < 0)
         {
@@ -95,6 +126,14 @@ public class Diary : MonoBehaviour
 
         if (_currentPage == Pages.Count)
         {
+            // see if the page has been done
+            if (_newPageFinalized)
+            {
+                _currentPage -= amount;
+                Debug.Log("mais est ce que tu passe ici ?");
+                return;
+            }
+            Debug.Log("comment ca mec");
             // show new page
             LoadSaveNewPage();
             _emptyPage.SetActive(true);
