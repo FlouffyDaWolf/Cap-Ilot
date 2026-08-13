@@ -84,6 +84,8 @@ public class Diary : MonoBehaviour
         _newTheme.value = (int)_newPageSave.Theme;
         _newEmotions.value = (int)_newPageSave.Emotion;
         _newContent.text = _newPageSave.Content;
+        _emptyPage.SetActive(true);
+        _oldPage.SetActive(false);
     }
 
     void LoadOldPage(int index)
@@ -93,6 +95,8 @@ public class Diary : MonoBehaviour
         _oldEmotions.text = oldPage.Emotion.ToString();
         _oldContent.text = oldPage.Content;
         _oldDate.text = oldPage.Date;
+        _emptyPage.SetActive(false);
+        _oldPage.SetActive(true);
     }
 
     public void FinalizePage()
@@ -119,8 +123,6 @@ public class Diary : MonoBehaviour
             // show old page
             SaveNewPage();
             LoadOldPage(_currentPage);
-            _emptyPage.SetActive(false);
-            _oldPage.SetActive(true);
             return;
         }
 
@@ -136,8 +138,6 @@ public class Diary : MonoBehaviour
             Debug.Log("comment ca mec");
             // show new page
             LoadSaveNewPage();
-            _emptyPage.SetActive(true);
-            _oldPage.SetActive(false);
             return;
         }
     }
