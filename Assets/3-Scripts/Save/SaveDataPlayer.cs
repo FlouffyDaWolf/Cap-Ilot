@@ -21,7 +21,7 @@ public static class SaveDataPlayer
 [Serializable]
 public class SaveData
 {
-    [SerializeField] PlayerData _playerData;
+    [SerializeField] public PlayerData _playerData;
 
     public SaveData(PlayerData playerData)
     {

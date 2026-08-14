@@ -15,9 +15,15 @@ public class testSaveLoad : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         chrono = 0;
+
+        SaveData savedata = LoadDataPlayer.LoadGameData();
+        if (savedata != null)
+        {
+            chrono = savedata._playerData._chrono;
+        }
     }
 
     void Update()
