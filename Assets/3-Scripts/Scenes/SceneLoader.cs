@@ -9,13 +9,18 @@ public class SceneLoader : MonoBehaviour
     // Reference to Managers
     private SceneManager sceneManager;
 
+    [Header("Scene Loader Settings")]
     // Scene to load
-    [SerializeField] private SceneManager.SceneNames sceneToLoad;
+    [Tooltip("The scene to load when the player enters the trigger.")]
+        [SerializeField] private SceneManager.SceneNames sceneToLoad;
 
+    [Header("Loading Screen Settings")]
     // Text on loading new scene
-    [SerializeField] private string loadingText = "Loading new zone...";
+    [Tooltip("The text to display on the loading screen when loading the new scene.")]
+        [SerializeField] private string loadingText = "Loading new zone...";
     // Text on unloading scene
-    [SerializeField] private string unloadingText = "Unloading previous zone...";
+    [Tooltip("The text to display on the loading screen when unloading the previous scene.")]
+        [SerializeField] private string unloadingText = "Unloading previous zone...";
 
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
     // ----------------------------------------------------------------------------- Unity Methods ----------------------------------------------------------------------------- //

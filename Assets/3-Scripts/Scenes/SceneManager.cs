@@ -20,10 +20,14 @@ public class SceneManager : MonoBehaviour
     // Instance
     static SceneManager instance;
 
+    [Header("Unity Objects")]
     // Unity Editor Objects
-    [SerializeField] private Canvas loadingScreenCanvas;
-    [SerializeField] private TextMeshProUGUI loadingText;
-    [SerializeField] private Slider loadingSlider;
+    [Tooltip("The canvas that will be used to display the loading screen.")]
+        [SerializeField] private Canvas loadingScreenCanvas;
+    [Tooltip("The text that will be used to display the loading progress.")]
+        [SerializeField] private TextMeshProUGUI loadingText;
+    [Tooltip("The slider that will be used to display the loading progress.")]
+        [SerializeField] private Slider loadingSlider;
 
     // Coroutine to load a scene asynchronously
     Coroutine loadAsyncScene;
