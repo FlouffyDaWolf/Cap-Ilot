@@ -62,6 +62,8 @@ public class Diary : MonoBehaviour
 
         _currentPage = Pages.Count;
 
+        if (Pages.Count == 0) return;
+
         if (Pages[^1].Date == _date)
         {
             Debug.Log("mais pourtant tu es la");
@@ -94,7 +96,10 @@ public class Diary : MonoBehaviour
         _oldTheme.text = oldPage.Theme.ToString();
         _oldEmotions.text = oldPage.Emotion.ToString();
         _oldContent.text = oldPage.Content;
-        _oldDate.text = oldPage.Date;
+        if (oldPage.Date == _date)
+            _oldDate.text = "Aujourd'hui";
+        else
+            _oldDate.text = oldPage.Date;
         _emptyPage.SetActive(false);
         _oldPage.SetActive(true);
     }
@@ -104,13 +109,12 @@ public class Diary : MonoBehaviour
         SaveNewPage();
         Pages.Add(_newPageSave);
         _newPageFinalized = true;
+        LoadOldPage(_currentPage);
     }
 
     public void ChangePage(int amount)
     {
         _currentPage += amount;
-
-        Debug.Log(_currentPage);
 
         if (_currentPage > Pages.Count || _currentPage < 0)
         {
@@ -132,10 +136,8 @@ public class Diary : MonoBehaviour
             if (_newPageFinalized)
             {
                 _currentPage -= amount;
-                Debug.Log("mais est ce que tu passe ici ?");
                 return;
             }
-            Debug.Log("comment ca mec");
             // show new page
             LoadSaveNewPage();
             return;
