@@ -106,29 +106,32 @@ public class MinigameEvents : MonoBehaviour
         _isRunning = false;
     }
 
-    public void TryTriggerCurrentEvent()
+    public bool TryTriggerCurrentEvent()
     {
         if (!_isRunning || _currentEvent == null)
-            return;
+            return false;
 
         switch (_currentEvent.TriggerMode)
         {
             case TriggerMode.Manual:
                 TriggerCurrentEvent();
-                break;
+                return true;
 
             case TriggerMode.Chance:
-                TryTriggerChanceEvent();
-                break;
+                return TryTriggerChanceEvent();
         }
+
+        return false;
     }
 
-    private void TryTriggerChanceEvent()
+    private bool TryTriggerChanceEvent()
     {
         if (UnityEngine.Random.value > _currentEvent.TriggerChance)
-            return;
+            return false;
 
         TriggerCurrentEvent();
+
+        return true;
     }
 
     private void TriggerCurrentEvent()
