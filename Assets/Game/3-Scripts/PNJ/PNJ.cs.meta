@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 09e92f0902581c7448076d01fe63dc70
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pnjSprite: {instanceID: 0}
+  - dialogueManager: {instanceID: 0}
+  - dialogueCanvasPrefab: {fileID: 3813689432237130823, guid: 9ced7169157e8c44fb7011c683eac9bf, type: 3}
+  - textFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - nameTextFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
