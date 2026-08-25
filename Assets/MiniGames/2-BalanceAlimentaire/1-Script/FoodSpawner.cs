@@ -66,7 +66,7 @@ public class FoodSpawner : MonoBehaviour
 
     public void SpawnFood()
     {
-        if (_availableFoods.Count == 0)
+        if (_availableFoods == null || _availableFoods.Count == 0)
             return;
 
         Food food = _foodPool.Get();

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class BalanceGame : Minigame
 {
