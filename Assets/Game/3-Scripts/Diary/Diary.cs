@@ -51,11 +51,11 @@ public class Diary : MonoBehaviour
     bool _newPageFinalized = false;
     string _date = DateTime.Today.ToString("d" ,new CultureInfo("fr-FR"));
 
-    public List<Page> Pages { get; } = new();
+    public List<Page> Pages { get; private set; } = new();
 
-    void OnEnable()
+    void Start()
     {
-        // Pages = Saves.Pages; // un truc du genre
+        Pages = SaveManager.PlayerSave.Pages;
 
         _newEmotions.AddOptions(new List<string>(Enum.GetNames(typeof(Emotions))));
         _newTheme.AddOptions(new List<string>(Enum.GetNames(typeof(Themes))));
@@ -66,7 +66,6 @@ public class Diary : MonoBehaviour
 
         if (Pages[^1].Date == _date)
         {
-            Debug.Log("mais pourtant tu es la");
             _currentPage--;
             _newPageFinalized = true;
             LoadOldPage(_currentPage);
