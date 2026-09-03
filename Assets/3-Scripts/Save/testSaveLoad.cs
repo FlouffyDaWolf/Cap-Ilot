@@ -9,7 +9,7 @@ public class testSaveLoad : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null )
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -18,12 +18,6 @@ public class testSaveLoad : MonoBehaviour
     private void Start()
     {
         chrono = 0;
-
-        SaveData savedata = LoadDataPlayer.LoadGameData();
-        if (savedata != null)
-        {
-            chrono = savedata._playerData._chrono;
-        }
     }
 
     void Update()
@@ -32,14 +26,23 @@ public class testSaveLoad : MonoBehaviour
         Debug.Log(chrono);
     }
 
-    private void OnApplicationPause( bool pauseStatue )
-    {
-        if (pauseStatue)
-            SaveDataPlayer.SaveGameState();
-    }
-
-    private void OnApplicationQuit()
+    public void SaveGame()
     {
         SaveDataPlayer.SaveGameState();
+        Debug.Log("Partie sauvegardée !");
+    }
+
+    public void LoadGame()
+    {
+        SaveData saveData = LoadDataPlayer.LoadGameData();
+        if (saveData != null)
+        {
+            chrono = saveData._playerData._chrono;
+            Debug.Log("Partie chargée !");
+        }
+        else
+        {
+            Debug.LogWarning("Aucune sauvegarde trouvée.");
+        }
     }
 }
