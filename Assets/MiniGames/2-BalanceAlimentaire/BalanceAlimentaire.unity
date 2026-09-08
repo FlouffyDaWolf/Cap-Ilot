@@ -953,6 +953,14 @@ PrefabInstance:
       propertyPath: _minigame
       value: 
       objectReference: {fileID: 529032578}
+    - target: {fileID: 5498152409789948689, guid: f50c1b87f8697d342b3ac0564f40fc23, type: 3}
+      propertyPath: _lowFriendshipEvent._firstDelay
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5498152409789948689, guid: f50c1b87f8697d342b3ac0564f40fc23, type: 3}
+      propertyPath: _lowFriendshipEvent._triggerChance
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5847196890817064996, guid: f50c1b87f8697d342b3ac0564f40fc23, type: 3}
       propertyPath: m_AnchorMax.x
       value: -4.72098
