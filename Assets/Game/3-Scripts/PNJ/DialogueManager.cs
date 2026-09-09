@@ -20,6 +20,12 @@ public class DialogueManager : MonoBehaviour
         [Tooltip("The text of the dialogue.")]
         [TextArea(3, 5)] public string DialogueText;
 
+        [Tooltip("Action on dialogue line end")]
+        public UnityEvent OnDialogueLineEnd;
+
+        [Tooltip("PNJ Sprite for this line only. Empty is base sprite")]
+        public Sprite spriteOnDialogueLine;
+
         [Header("Choice Settings")]
         [Tooltip("If true, the dialogue will be a choice dialogue")]
         public bool isChoiceDialogue;
@@ -79,6 +85,7 @@ public class DialogueManager : MonoBehaviour
     private int currentDialogueIndex = 0;
     private List<DialogueData> currentDialogueList;
     private DialogueData currentDialogueData;
+    private Sprite mainCurrentPnjSprite;
     Coroutine printTextCoroutine;
 
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
@@ -119,7 +126,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     // --------------------------- Main Methods --------------------------- //
-    public void InitNewDialogue(List<DialogueData> currentDialogueList, string pnjName, Sprite pnjSprite, Color dialogueTextColor, Color dialogueBgColor, TMP_FontAsset dialogueTextFont, Color nameTextColor, Color nameBgColor, TMP_FontAsset nameTextFont)
+    public void InitNewDialogue(List<DialogueData> currentDialogueList, string pnjName, Sprite pnjSprite, Color dialogueTextColor, Sprite dialogueBgSprite, Color dialogueBgColor, TMP_FontAsset dialogueTextFont, Color nameTextColor, Sprite nameBgSprite,  Color nameBgColor, TMP_FontAsset nameTextFont)
     {
         this.currentDialogueList = currentDialogueList;
         currentDialogueIndex = -1;
@@ -129,12 +136,20 @@ public class DialogueManager : MonoBehaviour
         dialogueText.font = dialogueTextFont;
         dialogueTextContainer.color = dialogueBgColor;
 
+        if(dialogueBgSprite != null)
+            dialogueTextContainer.sprite = dialogueBgSprite;
+
         // Set the PNJ UI elements
         pnjSpriteImage.sprite = pnjSprite;
         pnjNameText.text = pnjName;
         pnjNameText.color = nameTextColor;
         pnjNameText.font = nameTextFont;
         pnjNameTextContainer.color = nameBgColor;
+
+        if(nameBgSprite != null)
+            pnjNameTextContainer.sprite = nameBgSprite;
+
+        mainCurrentPnjSprite = pnjSprite;
 
 
 
@@ -161,7 +176,11 @@ public class DialogueManager : MonoBehaviour
 
                 printTextCoroutine = StartCoroutine(PrintTextCoroutine());
 
-                if(!currentDialogueData.isChoiceDialogue)
+                // Setup pnj sprite for the dialogue
+                if (currentDialogueData.spriteOnDialogueLine != null) pnjSpriteImage.sprite = currentDialogueData.spriteOnDialogueLine;
+                else pnjSpriteImage.sprite = mainCurrentPnjSprite;
+
+                if (!currentDialogueData.isChoiceDialogue)
                 {
                     foreach (Button button in choiceButtons)
                     {
@@ -239,5 +258,7 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
+
+        else if (currentDialogueData.OnDialogueLineEnd != null) currentDialogueData.OnDialogueLineEnd.Invoke();
     }
 }

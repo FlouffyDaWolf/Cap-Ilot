@@ -13,6 +13,7 @@ public class PNJ : MonoBehaviour
 
     // --------------------------- Private Variables --------------------------- //
     [Header("Main Settings")]
+
     [Tooltip("The name of the PNJ.")]
         [SerializeField] private string pnjName;
     [Tooltip("The sprite of the PNJ.")]
@@ -23,6 +24,9 @@ public class PNJ : MonoBehaviour
     [Tooltip("Launch the dialogue on start")]
         [SerializeField] private bool launchDialogueOnStart = false;
 
+    [Tooltip("gameObjects to active when the player is near")]
+        [SerializeField] List<GameObject> gameObjectsToActive;
+
     [Header("Dialogue Section")]
     // Dialogue Section
     private DialogueManager dialogueManager;
@@ -32,6 +36,8 @@ public class PNJ : MonoBehaviour
     [Space(10)]
     [Tooltip("The color of the dialogue Text")]
         [SerializeField] private Color textColor = Color.black;
+    [Tooltip("The sprite of the dialogueTextBox")]
+        [SerializeField] private Sprite textBackgroundSprite;
     [Tooltip("The color of the dialogue Text Background")]
         [SerializeField] private Color textBackgroundColor = Color.white;
     [Tooltip("The font of the dialogue Text")]
@@ -40,6 +46,8 @@ public class PNJ : MonoBehaviour
     [Space(5)]
     [Tooltip("The color of the name Text")]
         [SerializeField] private Color nameTextColor = Color.black;
+    [Tooltip("The sprite of the nameTextBox")]
+    [SerializeField] private Sprite nameTextBackgroundSprite;
     [Tooltip("The color of the name Text Background")]
         [SerializeField] private Color nameTextBackgroundColor = Color.white;
     [Tooltip("The font of the name Text")]
@@ -49,6 +57,10 @@ public class PNJ : MonoBehaviour
 
     [Tooltip("The list of dialogues for the PNJ.")]
         [SerializeField] private List<DialogueManager.DialogueData> dialogues = new List<DialogueManager.DialogueData>();
+
+
+
+
 
 
 
@@ -72,7 +84,43 @@ public class PNJ : MonoBehaviour
 
         if (launchDialogueOnStart)
         {
-            OnDialogueStart();
+            DialogueStart();
+        }
+
+        foreach (GameObject obj in gameObjectsToActive)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            foreach (GameObject obj in gameObjectsToActive)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            foreach (GameObject obj in gameObjectsToActive)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
+            }
         }
     }
 
@@ -91,12 +139,8 @@ public class PNJ : MonoBehaviour
     {
         Debug.LogError("CustomAction() method is not implemented in the PNJ class. Please override this method in a derived class.");
     }
-
-    // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
-    // ----------------------------------------------------------------------------- Private Methods ----------------------------------------------------------------------------- //
-    // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
-    private void OnDialogueStart()
+    public void DialogueStart()
     {
-        dialogueManager.InitNewDialogue(dialogues, pnjName, pnjSprite, textColor, textBackgroundColor, textFont, nameTextColor, nameTextBackgroundColor, nameTextFont);
+        dialogueManager.InitNewDialogue(dialogues, pnjName, pnjSprite, textColor, textBackgroundSprite, textBackgroundColor, textFont, nameTextColor, nameTextBackgroundSprite, nameTextBackgroundColor, nameTextFont);
     }
 }
