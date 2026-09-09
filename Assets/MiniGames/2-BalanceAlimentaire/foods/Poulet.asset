@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4a0a4e0070e9042a02811fa1c4a470, type: 3}
-  m_Name: Pomme
+  m_Name: Poulet
   m_EditorClassIdentifier: 
-  _foodName: Pomme
-  _category: 0
-  _sprite: {fileID: 3768065091467736479, guid: a0f22985ffcc6b9459661b13fea49d03, type: 3}
+  _foodName: Poulet
+  _category: 2
+  _sprite: {fileID: -8747638190317524498, guid: ae8fab4ab4d3370478e3ab7b53b067f5, type: 3}
