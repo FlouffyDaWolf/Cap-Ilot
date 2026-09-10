@@ -1,6 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class GameData
+{
+    public float chrono;
+}
 
 public class testSaveLoad : MonoBehaviour
 {
@@ -26,23 +33,17 @@ public class testSaveLoad : MonoBehaviour
         Debug.Log(chrono);
     }
 
-    public void SaveGame()
-    {
-        SaveDataPlayer.SaveGameState();
-        Debug.Log("Partie sauvegardée !");
-    }
-
     public void LoadGame()
     {
         SaveData saveData = LoadDataPlayer.LoadGameData();
         if (saveData != null)
         {
             chrono = saveData._playerData._chrono;
-            Debug.Log("Partie chargée !");
+            Debug.Log("Loaded Game !");
         }
         else
         {
-            Debug.LogWarning("Aucune sauvegarde trouvée.");
+            Debug.LogWarning("No save found.");
         }
     }
 }
