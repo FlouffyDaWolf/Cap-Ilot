@@ -5,7 +5,7 @@ public class PlayerMovement2D : MonoBehaviour
 {
     [SerializeField] private FloatingJoystick _joystick;
 
-    [Header("Déplacement")]
+    [Header("Dï¿½placement")]
     [SerializeField] private float _movementSpeed = 5f;
 
     [Header("Rotation")]
@@ -16,6 +16,8 @@ public class PlayerMovement2D : MonoBehaviour
     private Rigidbody2D _playerRigidbody;
     private Vector2 _movementDirection;
 
+    public bool CanMove { get; set; } = true;
+
     private void Awake()
     {
         _playerRigidbody = GetComponent<Rigidbody2D>();
@@ -23,6 +25,9 @@ public class PlayerMovement2D : MonoBehaviour
 
     private void Update()
     {
+        if (!CanMove)
+            return;
+            
         _movementDirection = _joystick.Direction;
 
         if (_rotateCharacter && _movementDirection.sqrMagnitude > 0.001f)

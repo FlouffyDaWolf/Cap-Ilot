@@ -1,18 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
     [SerializeField] string _registerSceneName;
+    [SerializeField] string _mainIslandScene;
 
     public void BeginGame()
     {
         if (!SaveManager.LoadGameData())
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(_registerSceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            SceneSystem.Instance.LoadAdditive(_registerSceneName);
         }
         else
         {
-            // load main island
+            SceneSystem.Instance.LoadSingle(_mainIslandScene);
         }
     }
 }

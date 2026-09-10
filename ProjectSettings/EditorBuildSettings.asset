@@ -14,6 +14,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/1-Scenes/UI/FirstRegister.unity
     guid: 0ff8e185bb6418444930a717d20d4e6c
+  - enabled: 1
+    path: Assets/Game/1-Scenes/Islands/MainIsland/MainIsland.unity
+    guid: 00a27c884155da44e8db9c4f153a1d3c
+  - enabled: 1
+    path: Assets/Game/1-Scenes/Islands/MainIsland/UI.unity
+    guid: 876109eda566b5449a4f90c172f46c33
+  - enabled: 1
+    path: Assets/Game/1-Scenes/Houses/Home.unity
+    guid: d3fec56dd2e11f243a9ae9175479ca77
+  - enabled: 1
+    path: Assets/Game/1-Scenes/Houses/Port.unity
+    guid: 7a8c2b3aabdd9d2439be9c0d34d4da9e
+  - enabled: 1
+    path: Assets/Game/1-Scenes/UI/ResultsPanel.unity
+    guid: 451253924905ec642b035b86ecf8b9bd
+  - enabled: 1
+    path: Assets/MiniGames/2-BalanceAlimentaire/BalanceAlimentaire.unity
+    guid: 52183e8d6f2cf42478a7651fd93150c9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

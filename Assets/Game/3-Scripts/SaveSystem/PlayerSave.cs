@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+[Serializable]
 public struct MiniGameSave
 {
     public float Chrono;
     public bool Unlocked;
 }
 
+[Serializable]
 public struct PlayerInfo
 {
     public string PlayerName;

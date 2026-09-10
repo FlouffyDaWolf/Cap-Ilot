@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Register : MonoBehaviour
 {
     [SerializeField] TMP_InputField _playerNameInput;
     [SerializeField] TMP_InputField _nurseEmailInput;
 
-    public void FinishRengister()
+    [SerializeField] string _mainIslandScene;
+
+    public void FinishRegister()
     {
         // validation part
         string playerName = _playerNameInput.text;
@@ -19,6 +22,6 @@ public class Register : MonoBehaviour
         SaveManager.InitPlayerInfo(playerInfo);
 
         // Load next scene 
-        // SceneManager.GetInstance().LoadScene(SceneManager.SceneNames.);
+        SceneSystem.Instance.LoadSingle(_mainIslandScene);
     }
 }
